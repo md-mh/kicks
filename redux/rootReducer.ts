@@ -1,6 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import themeReducer from "./features/theme/themeSlice";
 
 export type IRootState = ReturnType<typeof rootReducer>;
 
@@ -9,7 +10,9 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  theme: themeReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
