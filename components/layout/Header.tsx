@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FiMenu, FiSearch, FiUser, FiX } from "react-icons/fi";
 import Link from "next/link";
+import Image from "next/image";
 
 // Navigation header with mobile menu and cart integration.
 export default function Header() {
@@ -10,7 +11,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="px-4 md:px-10 pt-4 sticky top-0 z-40">
+      <header className="pt-4 sticky top-0 z-40">
         <div className="bg-white rounded-xl px-4 sm:px-6 md:px-10 py-3 md:py-4 flex items-center justify-between shadow-sm">
           {/* Mobile Menu Button */}
           <button
@@ -35,9 +36,12 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/">
-            <h1 className="text-2xl md:text-4xl font-extrabold tracking-widest text-[#232321]">
-              KICKS
-            </h1>
+            <Image
+              src="/logo_black.svg"
+              alt="KicksPlus Logo"
+              width={120}
+              height={40}
+            />
           </Link>
 
           {/* Right Side Icons */}
