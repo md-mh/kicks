@@ -8,9 +8,9 @@ export default function Footer() {
     <footer className="pt-0 pb-10 px-0 w-full font-sans relative">
       {/* Newsletter Banner */}
       <div className="w-full bg-[#5865F2] rounded-t-[32px] md:rounded-t-[40px] overflow-hidden relative px-3 sm:px-8 py-9 sm:py-12 lg:py-14">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between max-w-7xl mx-auto relative">
-          <div className="flex-1 min-w-0">
-            <h2 className="uppercase text-white font-bold text-lg sm:text-2xl md:text-[26px] lg:text-[30px] xl:text-[34px] leading-tight mb-2 tracking-tight">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-start md:items-center justify-between max-w-7xl mx-auto relative mb-5">
+          <div className="col-span-1 min-w-0">
+            <h2 className="uppercase text-white font-bold text-2xl md:text-[26px] lg:text-[30px] xl:text-[34px] leading-tight mb-2 tracking-tight">
               Join our kicksplus
               <br className="hidden sm:block" /> club & get 15% off
             </h2>
@@ -22,12 +22,11 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email address"
-                className="flex-1 bg-transparent border border-white text-white placeholder:text-white/70 focus:placeholder:text-white px-4 py-[9px] rounded-l-lg rounded-r-none outline-none text-sm min-w-0"
-                style={{ borderRight: "none" }}
+                className="flex-1 bg-transparent border border-white text-white placeholder:text-white/70 focus:placeholder:text-white px-4 py-[9px] rounded-lg outline-none text-sm min-w-0"
               />
               <button
                 type="submit"
-                className="bg-[#232321] hover:bg-black border-none text-white px-7 py-[9px] rounded-r-lg rounded-l-none text-xs font-bold transition focus:outline-none"
+                className="bg-[#232321] hover:bg-black border-none text-white px-7 py-[9px] rounded-lg text-xs font-bold transition focus:outline-none"
                 style={{ minWidth: 72, letterSpacing: 0.5 }}
               >
                 SUBMIT
@@ -36,18 +35,12 @@ export default function Footer() {
           </div>
           {/* Watermark logo, right upper */}
           <div className="sm:static sm:ml-8 mt-8 md:mt-0 flex items-center justify-end h-full mb-5">
-            <span className="hidden sm:block text-white font-extrabold select-none pointer-events-none text-[50px] md:text-[65px] lg:text-[80px] xl:text-[92px] tracking-tighter leading-none drop-shadow-md">
+            <span className="flex text-white font-extrabold select-none pointer-events-none text-[33px] font-sans tracking-tighter leading-none px-5">
               <img
                 src="/logo_white.svg"
                 alt="KicksPlus Logo"
                 className="w-full mx-auto"
               />
-              <span className="text-[#FFA833] text-[.75em] align-top relative -top-2">
-                *
-              </span>
-            </span>
-            <span className="sm:hidden text-white font-extrabold select-none pointer-events-none text-[33px] font-sans tracking-tighter leading-none">
-              KICKS
               <span className="text-[#FFA833] text-[.75em] align-top relative -top-1">
                 *
               </span>

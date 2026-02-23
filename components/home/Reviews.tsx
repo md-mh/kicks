@@ -71,7 +71,7 @@ export default function Reviews() {
                 <img
                   src={review.avatar}
                   alt="Reviewer"
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover flex-shrink-0"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
                 />
               </div>
 
