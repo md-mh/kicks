@@ -29,17 +29,31 @@ const cartSlice = createSlice({
         });
       }
     },
-    removeFromCart: (state, action: PayloadAction<number>) => {
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ id: number; size: number; color: string }>,
+    ) => {
       state.items = state.items.filter(
-        (item: CartItem) => item.id !== action.payload,
+        (item: CartItem) =>
+          item.id !== action.payload.id ||
+          item.size !== action.payload.size ||
+          item.color !== action.payload.color,
       );
     },
     updateQuantity: (
       state,
-      action: PayloadAction<{ id: number; quantity: number }>,
+      action: PayloadAction<{
+        id: number;
+        quantity: number;
+        size: number;
+        color: string;
+      }>,
     ) => {
       const item = state.items.find(
-        (it: CartItem) => it.id === action.payload.id,
+        (it: CartItem) =>
+          it.id === action.payload.id &&
+          it.size === action.payload.size &&
+          it.color === action.payload.color,
       );
       if (item && action.payload.quantity > 0) {
         item.quantity = action.payload.quantity;
@@ -47,10 +61,11 @@ const cartSlice = createSlice({
     },
     updateSize: (
       state,
-      action: PayloadAction<{ id: number; size: number }>,
+      action: PayloadAction<{ id: number; size: number; color: string }>,
     ) => {
       const item = state.items.find(
-        (it: CartItem) => it.id === action.payload.id,
+        (it: CartItem) =>
+          it.id === action.payload.id && it.color === action.payload.color,
       );
       if (item && action.payload.size > 0) {
         item.size = action.payload.size;

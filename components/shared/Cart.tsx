@@ -21,9 +21,9 @@ export default function Cart() {
     0,
   );
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: number, size: number, color: string) => {
     if (typeof id === "number") {
-      dispatch(removeFromCart(id));
+      dispatch(removeFromCart({ id: id, size: size, color: color }));
     }
   };
 
@@ -105,7 +105,9 @@ export default function Cart() {
                           <button
                             type="button"
                             className="text-red-500 hover:text-red-700 text-xs cursor-pointer"
-                            onClick={() => handleRemove(Number(item.id))}
+                            onClick={() =>
+                              handleRemove(item.id, item.size, item.color)
+                            }
                           >
                             Remove
                           </button>

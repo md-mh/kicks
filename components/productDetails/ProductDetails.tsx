@@ -8,13 +8,14 @@ import { addToCart } from "@/redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import { CartItem } from "@/types/Cart";
 import { COLORS, SIZES } from "@/utils/presetdata";
+import { useRouter } from "next/navigation";
 
 function ProductDetails({ product }: { product: ProductType }) {
   const [selectedSize, setSelectedSize] = useState<number | null>(39);
   const [selectedColor, setSelectedColor] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const images = product.images;
   // Ensure we have at least 4 images for the grid by duplicating
   const gridImages =
@@ -35,6 +36,10 @@ function ProductDetails({ product }: { product: ProductType }) {
     );
   };
 
+  const handleBuyItNow = () => {
+    handleAddToCart();
+    router.push("/cart");
+  };
   return (
     <div className="max-w-7xl mx-auto py-6 md:py-10 px-4 md:px-10">
       {/* Main Product Section */}
@@ -159,7 +164,10 @@ function ProductDetails({ product }: { product: ProductType }) {
           </div>
 
           {/* Buy It Now */}
-          <button className="w-full bg-[#4A69E2] hover:bg-[#3B57C9] text-white rounded-lg py-3 md:py-3.5 font-semibold text-xs md:text-sm transition-colors cursor-pointer uppercase">
+          <button
+            onClick={handleBuyItNow}
+            className="w-full bg-[#4A69E2] hover:bg-[#3B57C9] text-white rounded-lg py-3 md:py-3.5 font-semibold text-xs md:text-sm transition-colors cursor-pointer uppercase"
+          >
             Buy it Now
           </button>
 
