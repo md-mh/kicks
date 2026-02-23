@@ -3,18 +3,21 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { IRootState } from "@/redux/rootReducer";
-import Link from "next/link";
 import { FiChevronRight } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/redux/features/cart/cartSlice";
+import { useRouter } from "next/navigation";
 
 function OrderSummary() {
   const [promoOpen, setPromoOpen] = useState(false);
   const [promoCode, setPromoCode] = useState("");
   const cartItems = useSelector((state: IRootState) => state.cart.items);
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   const itemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
-    0
+    0,
   );
   const delivery = cartItems.length > 0 ? 6.99 : 0;
   const salesTax: number = 0;
@@ -49,14 +52,16 @@ function OrderSummary() {
         </div>
       </div>
 
-      <Link href="/checkout" className="block mt-6">
-        <button
-          type="button"
-          className="w-full py-3.5 bg-[#232321] hover:bg-[#3a3a37] text-white font-semibold rounded-lg transition-colors cursor-pointer text-sm uppercase tracking-wide"
-        >
-          Checkout
-        </button>
-      </Link>
+      <button
+        onClick={() => {
+          dispatch(clearCart());
+          router.push("/checkout");
+        }}
+        type="button"
+        className="w-full py-3.5 bg-[#232321] hover:bg-[#3a3a37] text-white font-semibold rounded-lg transition-colors cursor-pointer text-sm uppercase tracking-wide"
+      >
+        Checkout
+      </button>
 
       {/* Promo Code */}
       <div className="mt-4">

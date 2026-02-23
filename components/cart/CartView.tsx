@@ -64,7 +64,7 @@ function CartView() {
                 {/* Product Image */}
                 <div className="w-[110px] min-w-[110px] h-[110px] md:w-[135px] md:h-[135px] bg-[#eff0ed] rounded-xl overflow-hidden flex items-center justify-center shrink-0">
                   <Image
-                    src={item.images[0]}
+                    src={item.images?.[0] ?? "/logo_black.svg"}
                     alt={item.title}
                     width={135}
                     height={135}
