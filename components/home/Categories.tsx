@@ -1,26 +1,13 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiArrowUpRight } from "react-icons/fi";
 import { useGetCategoriesQuery } from "@/redux/api/productsApi";
 import Link from "next/link";
 
 // Categories section - fetches categories from the API with horizontal scroll.
 export default function Categories() {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const { data: categories } = useGetCategoriesQuery();
-
-  // Filter to main categories (seed data, id <= 5)
-  const mainCategories = categories?.filter((cat) => cat.id <= 5) || [];
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const scrollAmount = scrollRef.current.offsetWidth * 0.55;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
 
   // Chunk into pairs so we show 2 cards per slide
   const slides = useMemo(() => {
