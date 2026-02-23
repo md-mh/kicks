@@ -1,4 +1,8 @@
 import { Metadata } from "next";
+import HeroSection from "@/components/home/HeroSection";
+import NewDrops from "@/components/home/NewDrops";
+import Categories from "@/components/home/Categories";
+import Reviews from "@/components/home/Reviews";
 
 export const metadata: Metadata = {
   title: "KICKS - Do It Right",
@@ -9,7 +13,10 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <h1>Kicks</h1>
+      <HeroSection />
+      <NewDrops />
+      <Categories />
+      <Reviews />
     </>
   );
 }
