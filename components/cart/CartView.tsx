@@ -85,16 +85,13 @@ function CartView() {
                       </p>
                       <p className="text-[.99rem] text-[#757575] font-normal mb-0">
                         {/* For demo only: show color text if available */}
-                        {item.color ? (
-                          <span>{item.color}</span>
-                        ) : (
-                          <span className="opacity-80">
-                            Enamel Blue/ University White
-                          </span>
-                        )}
+
+                        <span className="opacity-80">
+                          {item.color ?? "N/A"}
+                        </span>
                       </p>
                     </div>
-                    <div className="md:text-right flex-shrink-0 mt-2 md:mt-0">
+                    <div className="md:text-right mt-2 md:mt-0">
                       <span className="font-bold text-[#1966d2] text-lg md:text-[1.25rem] whitespace-nowrap tracking-tight">
                         ${item.price.toFixed(2)}
                       </span>
