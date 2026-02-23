@@ -1,34 +1,14 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import { FiChevronLeft, FiChevronRight, FiArrowUpRight } from "react-icons/fi";
 import { useGetCategoriesQuery } from "@/redux/api/productsApi";
-import ErrorState from "../shared/ErrorState";
 import Link from "next/link";
-
-// Category skeleton loader.
-function CategorySkeleton() {
-  return (
-    <div className="min-w-[260px] sm:min-w-[300px] md:min-w-[45%] lg:min-w-[48%] bg-[#E7E7E3] rounded-3xl overflow-hidden animate-pulse flex-shrink-0">
-      <div className="bg-gray-300 aspect-[4/3]" />
-      <div className="p-5 md:p-6 flex items-end justify-between">
-        <div className="h-7 bg-gray-300 rounded w-1/2" />
-        <div className="w-11 h-11 bg-gray-300 rounded-xl" />
-      </div>
-    </div>
-  );
-}
 
 // Categories section - fetches categories from the API with horizontal scroll.
 export default function Categories() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const {
-    data: categories,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetCategoriesQuery();
+  const { data: categories } = useGetCategoriesQuery();
 
   // Filter to main categories (seed data, id <= 5)
   const mainCategories = categories?.filter((cat) => cat.id <= 5) || [];
