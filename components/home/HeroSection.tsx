@@ -25,8 +25,8 @@ export default function HeroSection() {
         <div className="relative flex-1 min-w-0 rounded-2xl md:rounded-3xl overflow-hidden h-[270px] xs:h-[320px] sm:h-[370px] md:h-[440px] lg:h-[520px] shadow-md">
           {/* Hero Shoe Image - You must dynamically set src/top image after this code */}
           <img
-            src={currentImage}
-            alt={product?.title}
+            src={currentImage || "/logo_black.svg"}
+            alt={product?.title || "Product Image"}
             className="object-cover w-full h-full"
           />
           {/* Golden fabric overlay */}
@@ -52,10 +52,11 @@ export default function HeroSection() {
               {product?.title}
             </h2>
             <p className="text-gray-200 mt-1 max-w-[50vw] text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl drop-shadow  ">
-              {product?.description.slice(0, 75)}...
+              {product?.description?.slice(0, 75) ?? ""}
+              {product?.description && product.description.length > 75 ? "..." : ""}
             </p>
             <Link
-              href={`/product/${product?.id}`}
+              href={product?.id != null ? `/product-details/${product.id}` : "#"}
               className="mt-3 w-max bg-[#2046B3] hover:bg-[#123189] transition-colors shadow-md px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg text-white font-semibold text-xs sm:text-sm tracking-wide"
             >
               SHOP NOW
