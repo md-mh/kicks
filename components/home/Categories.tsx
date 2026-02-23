@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FiChevronLeft, FiChevronRight, FiArrowUpRight } from "react-icons/fi";
 import { useGetCategoriesQuery } from "@/redux/api/productsApi";
 import ErrorState from "../shared/ErrorState";
+import Link from "next/link";
 
 // Category skeleton loader.
 function CategorySkeleton() {
@@ -41,77 +42,94 @@ export default function Categories() {
     });
   };
 
+  // Chunk into pairs so we show 2 cards per slide
+  const slides = useMemo(() => {
+    const pairs = [];
+    for (let i = 0; i < (categories?.length ?? 0); i += 2) {
+      pairs.push(categories?.slice(i, i + 2) || []);
+    }
+    return pairs;
+  }, [categories]);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = slides.length - 1;
+
+  const goPrev = () => {
+    setCurrentIndex((i) => Math.max(0, i - 1));
+  };
+  const goNext = () => {
+    setCurrentIndex((i) => Math.min(maxIndex, i + 1));
+  };
+
   return (
-    <section className="bg-[#232321] rounded-3xl mx-2 md:mx-6 mt-14 md:mt-20 px-4 md:px-10 py-8 md:py-12">
-      {/* Section Header */}
-      <div className="flex items-center justify-between mb-6 md:mb-10">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-          CATEGORIES
-        </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => scroll("left")}
-            className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-[#3A3A37] text-white flex items-center justify-center hover:bg-[#4A69E2] transition-colors cursor-pointer"
-          >
-            <FiChevronLeft size={18} />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-white text-[#232321] flex items-center justify-center hover:bg-[#4A69E2] hover:text-white transition-colors cursor-pointer"
-          >
-            <FiChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-
-      {/* Loading State */}
-      {isLoading && (
-        <div className="flex gap-4 md:gap-6">
-          <CategorySkeleton />
-          <CategorySkeleton />
-        </div>
-      )}
-
-      {/* Error State */}
-      {isError && (
-        <ErrorState message="Failed to load categories." onRetry={refetch} />
-      )}
-
-      {/* Category Cards */}
-      {!isLoading && !isError && mainCategories.length > 0 && (
-        <div
-          ref={scrollRef}
-          className="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory"
-        >
-          {mainCategories.map((category) => (
-            <div
-              key={category.id}
-              className="min-w-[260px] sm:min-w-[300px] md:min-w-[45%] lg:min-w-[48%] bg-[#E7E7E3] rounded-3xl overflow-hidden group cursor-pointer flex-shrink-0 snap-start hover:shadow-lg transition-shadow duration-300"
+    <div className="-mx-4 md:-mx-10">
+      <section className="bg-[#292929] pl-7 sm:pl-12 mt-10 sm:mt-30">
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-6 md:mb-10 pt-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+            CATEGORIES
+          </h2>
+          <div className="flex gap-2 pr-5">
+            <button
+              onClick={goPrev}
+              className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-[#3A3A37] text-white flex items-center justify-center hover:bg-[#4A69E2] transition-colors cursor-pointer"
             >
-              {/* Category Image */}
-              <div className="bg-[#E7E7E3] aspect-[4/3] relative overflow-hidden flex items-center justify-center">
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  fill
-                  unoptimized
-                  className="object-contain p-6 group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
-              {/* Category Info */}
-              <div className="px-5 pb-5 md:px-6 md:pb-6 flex items-end justify-between">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[#232321] leading-tight uppercase">
-                  {category.name}
-                </h3>
-                <button className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#232321] text-white flex items-center justify-center group-hover:bg-[#4A69E2] transition-colors flex-shrink-0 cursor-pointer">
-                  <FiArrowUpRight size={18} />
-                </button>
-              </div>
-            </div>
-          ))}
+              <FiChevronLeft size={18} />
+            </button>
+            <button
+              onClick={goNext}
+              className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-white text-[#232321] flex items-center justify-center hover:bg-[#4A69E2] hover:text-white transition-colors cursor-pointer"
+            >
+              <FiChevronRight size={18} />
+            </button>
+          </div>
         </div>
-      )}
-    </section>
+
+        {/* Content area with rounded top - carousel shows 2 cards at a time */}
+        <div className="bg-[#F8F8F8] rounded-tl-2xl sm:rounded-tl-3xl overflow-hidden">
+          <div
+            className="flex transition-transform duration-300 ease-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {slides.map((pair, slideIndex) => (
+              <div
+                key={slideIndex}
+                className="w-full grid grid-cols-1 sm:grid-cols-2 divide-x-0 sm:divide-x divide-gray-200/80 shrink-0"
+              >
+                {pair.map((category, cardIndex) => (
+                  <div
+                    key={`${slideIndex}-${cardIndex}`}
+                    className={`relative min-h-70 sm:min-h-80 flex flex-col ${cardIndex === 0 ? "bg-[#ECEEF0]" : ""}`}
+                  >
+                    {/* Product image - blends with card background */}
+                    <div className="flex-1 flex items-center justify-center py-6 px-4 overflow-hidden">
+                      <img
+                        src={category.image}
+                        alt={category.name}
+                        className="max-h-45 sm:max-h-55 w-auto object-contain object-center"
+                      />
+                    </div>
+
+                    {/* Bottom row: title + CTA button */}
+                    <div className="flex items-end justify-between px-5 pb-5 pt-2">
+                      <h3 className="text-black font-bold text-sm sm:text-base lg:text-lg uppercase tracking-tight leading-tight max-w-[60%]">
+                        {category.name}
+                      </h3>
+                      <Link
+                        href="/"
+                        aria-label={`View ${category.name}`}
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-black text-white flex items-center justify-center hover:bg-gray-800 transition-colors shrink-0 cursor-pointer"
+                      >
+                        <FiArrowUpRight size={18} />{" "}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

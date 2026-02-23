@@ -17,7 +17,7 @@ export default function NewDrops() {
   } = useGetProductsQuery({ offset: 0, limit: 4 });
 
   return (
-    <section className="px-4 md:px-10 mt-14 md:mt-20">
+    <section className="">
       {/* Section Header */}
       <div className="flex items-end justify-between mb-6 md:mb-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase leading-tight text-[#232321]">
