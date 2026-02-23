@@ -79,8 +79,8 @@ export default function Cart() {
                 </div>
               ) : (
                 <ul className="space-y-4">
-                  {cartItems.map((item: CartItem) => (
-                    <li key={item.id} className="flex items-center gap-3">
+                  {cartItems.map((item: CartItem, index: number) => (
+                    <li key={index} className="flex items-center gap-3">
                       <div className="w-12 h-12 bg-[#F6F6F6] rounded-lg overflow-hidden flex items-center justify-center shrink-0">
                         <Image
                           src={item.images[0]}

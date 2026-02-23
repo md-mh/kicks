@@ -7,12 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import { CartItem } from "@/types/Cart";
-
-const SIZES = [39, 40, 41, 42, 43, 44, 45, 46, 47];
-const COLORS = [
-  { name: "Shadow Navy", hex: "#232321" },
-  { name: "Army Green", hex: "#6B7A5E" },
-];
+import { COLORS, SIZES } from "@/utils/presetdata";
 
 function ProductDetails({ product }: { product: ProductType }) {
   const [selectedSize, setSelectedSize] = useState<number | null>(39);
@@ -31,7 +26,7 @@ function ProductDetails({ product }: { product: ProductType }) {
     dispatch(
       addToCart({
         ...product,
-        size: selectedSize?.toString() || "",
+        size: selectedSize ?? 0,
         color: COLORS[selectedColor].name,
       } as CartItem),
     );

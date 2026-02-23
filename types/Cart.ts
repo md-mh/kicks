@@ -3,7 +3,7 @@ import { ProductType } from "./Products";
 // The Cart Item interface that defines the cart item.
 export interface CartItem extends ProductType {
   quantity: number;
-  size: string;
+  size: number;
   color: string;
 }
 
