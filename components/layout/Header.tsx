@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FiMenu, FiSearch, FiUser, FiX } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
+import Cart from "../shared/Cart";
 
 // Navigation header with mobile menu and cart integration.
 export default function Header() {
@@ -48,6 +49,7 @@ export default function Header() {
           <div className="flex items-center gap-3 md:gap-5">
             <FiSearch className="hidden md:block text-xl cursor-pointer text-[#232321] hover:text-[#4A69E2] transition-colors" />
             <FiUser className="text-xl cursor-pointer text-[#232321] hover:text-[#4A69E2] transition-colors" />
+            <Cart />
           </div>
         </div>
       </header>
